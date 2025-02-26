@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
+
 import reportWebVitals from './reportWebVitals';
+
+// Tailwind CSS가 적용된 index.css 파일을 불러옴
+import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
