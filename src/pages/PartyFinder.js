@@ -87,13 +87,6 @@ export default function PartyFinder() {
                         </div>
                     ))}
                 </div>
-
-                {/* 파티 생성 버튼 (화면 하단 고정) */}
-                <button
-                    className="fixed bottom-8 right-8 bg-orange-500 text-white p-4 rounded-full shadow-lg hover:bg-orange-600 transition"
-                >
-                    <PlusCircleIcon className="h-8 w-8" />
-                </button>
             </div>
         </main>
     )

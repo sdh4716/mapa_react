@@ -1,6 +1,7 @@
 // src/components/Main.js
 import React, { useState, useRef } from 'react'
 import { MagnifyingGlassIcon, FireIcon, ClockIcon, StarIcon } from '@heroicons/react/24/solid'
+import MainSearchbar from '../components/search/MainSearchbar'
 
 export default function Main() {
     const [searchTerm, setSearchTerm] = useState('')
@@ -36,8 +37,8 @@ export default function Main() {
     ]
 
     return (
-        <div className="flex flex-col min-h-screen bg-gray-50 py-10">
-            <main className="flex flex-grow flex-col items-center justify-center">
+        <div className="flex flex-col min-h-screen bg-gray-50 py-10 dark:bg-gray-900 transition-colors">
+            <main className="flex flex-grow flex-col items-center justify-center ">
                 <div className="bg-white p-10 rounded-2xl shadow-xl w-full max-w-2xl">
                     <h1 className="text-3xl font-extrabold text-center mb-8 text-gray-900">
                         메이플랜드 파티구인 시스템
@@ -48,55 +49,24 @@ export default function Main() {
                     </div>
 
                     <div className="relative mb-8">
-                        <div className="flex items-center space-x-3">
-                            <input
-                                ref={searchInputRef}
-                                type="text"
-                                className="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-                                placeholder="사냥터 이름을 입력하세요"
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                onFocus={handleFocus}
-                                onBlur={handleBlur}
-                            />
-                            {/* <button
-                                className="flex items-center bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-4 rounded-lg shadow-md hover:from-orange-600 hover:to-red-600 transition"
-                                onClick={handleSearch}
-                            >
-                                <MagnifyingGlassIcon className="h-6 w-6" />
-                            </button> */}
-                        </div>
+                        <MainSearchbar/>
+                    </div>
 
-                        {isSearchFocused && (
-                            <div className="absolute top-full mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-10 p-4">
-                                <div className="mb-4">
-                                    <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
-                                        <ClockIcon className="h-4 w-4 mr-1 text-gray-500" />
-                                        최근 검색어
-                                    </h3>
-                                    <ul className="text-sm text-gray-600">
-                                        {recentSearches.map((item, index) => (
-                                            <li key={index} className="hover:bg-gray-100 p-2 rounded cursor-pointer">
-                                                {item}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
-                                        <StarIcon className="h-4 w-4 mr-1 text-yellow-500" />
-                                        즐겨찾기 사냥터
-                                    </h3>
-                                    <ul className="text-sm text-gray-600">
-                                        {favoriteSpots.map((item, index) => (
-                                            <li key={index} className="hover:bg-gray-100 p-2 rounded cursor-pointer">
-                                                {item}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
+                    <h2 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
+                        <FireIcon className="h-6 w-6 text-red-500 mr-2" />
+                        내 레벨/스펙 추천 사냥터
+                    </h2>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        {popularHuntingSpots.map((spot, index) => (
+                            <div
+                                key={index}
+                                className="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1"
+                            >
+                                <h3 className="text-lg font-semibold text-gray-900">{spot.name}</h3>
+                                <p className="text-sm text-gray-500 mt-2">{spot.description}</p>
                             </div>
-                        )}
+                        ))}
                     </div>
 
                     <h2 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center">

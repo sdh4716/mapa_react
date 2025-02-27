@@ -1,17 +1,49 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Bars3Icon, MoonIcon, SunIcon, ClockIcon, StarIcon } from '@heroicons/react/24/solid'
+import {
+    MoonIcon,
+    SunIcon,
+    ClockIcon,
+    StarIcon,
+    UserCircleIcon,
+    FolderOpenIcon,
+    PlusCircleIcon,
+    ExclamationCircleIcon,
+    Bars3Icon,
+    MagnifyingGlassIcon
+    
+} from '@heroicons/react/24/solid'
 import { TbLeaf2 } from "react-icons/tb"
 import { PopoverGroup } from '@headlessui/react'
 import { Link } from 'react-router-dom'
+import MainSearchbar from '../search/MainSearchbar'
 
-export default function Header() {
+export default function Header({ toggleSidebar }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [searchTerm, setSearchTerm] = useState('')
     const [isSearchFocused, setIsSearchFocused] = useState(false)
     const [isDarkMode, setIsDarkMode] = useState(false)
     const searchInputRef = useRef(null)
+
+    const mockHuntingSpots = [
+        { id: 1, name: '엘리니아 숲', icon: 'https://maplestory.io/api/GMS/62/map/Ellinia/icon' },
+        { id: 2, name: '페리온 폐허', icon: 'https://maplestory.io/api/GMS/62/map/Ellinia/icon' },
+        { id: 3, name: '리프레의 숲', icon: 'https://maplestory.io/api/GMS/62/map/Ellinia/icon' },
+        { id: 4, name: '루디브리엄 시계탑', icon: 'https://maplestory.io/api/GMS/62/map/Ellinia/icon' },
+        { id: 5, name: '헤네시스 북쪽 초원', icon: 'https://maplestory.io/api/GMS/62/map/Ellinia/icon' },
+        { id: 6, name: '마가티아 사막', icon: 'https://maplestory.io/api/GMS/62/map/Ellinia/icon' },
+    ]
+
+    const recentSearches = [
+        { id: 1, name: '엘리니아 숲', icon: 'https://maplestory.io/api/GMS/62/map/Ellinia/icon' },
+        { id: 2, name: '페리온 폐허', icon: 'https://maplestory.io/api/GMS/62/map/Ellinia/icon' },
+        { id: 3, name: '리프레의 숲', icon: 'https://maplestory.io/api/GMS/62/map/Ellinia/icon' },
+    ]
+    const favoriteSpots = [
+        { id: 5, name: '헤네시스 북쪽 초원', icon: 'https://maplestory.io/api/GMS/62/map/Ellinia/icon' },
+        { id: 6, name: '마가티아 사막', icon: 'https://maplestory.io/api/GMS/62/map/Ellinia/icon' },
+    ]
 
     useEffect(() => {
         if (isDarkMode) {
@@ -37,14 +69,17 @@ export default function Header() {
         }, 200)
     }
 
-    const recentSearches = ['루디브리엄 시계탑', '헤네시스 북쪽 초원', '마가티아 사막']
-    const favoriteSpots = ['아쿠아리움 해저', '리프레의 숲']
+    const filteredHuntingSpots = mockHuntingSpots.filter((spot) =>
+        spot.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+
+
 
     return (
         <>
             <header className="bg-gray-100 dark:bg-gray-800 fixed top-0 left-0 w-full z-50 shadow-md transition-colors">
                 <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-                    <div className="flex items-center">
+                    <div className="flex items-center">                        
                         <Link to="/" className="flex items-center -m-1.5 p-1.5">
                             <div className="relative h-8 w-8">
                                 <TbLeaf2
@@ -67,63 +102,30 @@ export default function Header() {
                         </Link>
                     </div>
 
-                    <div className="relative flex items-center justify-center mx-auto max-w-lg w-full">
-                        <input
-                            ref={searchInputRef}
-                            type="text"
-                            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-700 dark:text-white"
-                            placeholder="사냥터 이름을 입력하세요"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            onFocus={handleFocus}
-                            onBlur={handleBlur}
-                        />
-
-                        {isSearchFocused && (
-                        <div className="absolute top-full mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-10 p-4">
-                            <div className="mb-4">
-                            <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
-                                <ClockIcon className="h-4 w-4 mr-1 text-gray-500" />
-                                최근 검색어
-                            </h3>
-                            <ul className="text-sm text-gray-600">
-                                {recentSearches.map((item, index) => (
-                                <li key={index} className="hover:bg-gray-100 p-2 rounded cursor-pointer">
-                                    {item}
-                                </li>
-                                ))}
-                            </ul>
-                            </div>
-                            <div>
-                            <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
-                                <StarIcon className="h-4 w-4 mr-1 text-yellow-500" />
-                                즐겨찾기 사냥터
-                            </h3>
-                            <ul className="text-sm text-gray-600">
-                                {favoriteSpots.map((item, index) => (
-                                <li key={index} className="hover:bg-gray-100 p-2 rounded cursor-pointer">
-                                    {item}
-                                </li>
-                                ))}
-                            </ul>
-                            </div>
-                        </div>
-                        )}
-                    </div>
+                    <MainSearchbar/>
 
                     <div className="flex items-center gap-x-6">
                         <PopoverGroup className="hidden lg:flex lg:gap-x-6">
-                            <Link to="/partyfinder" className="text-sm font-semibold text-gray-900 dark:text-white">
+                            {/* <Link to="/partyfinder" className="text-sm font-semibold text-gray-900 dark:text-white">
                                 파티찾기
                             </Link>
+                            <Link to="/partymaker" className="text-sm font-semibold text-gray-900 dark:text-white">
+                                파티생성
+                            </Link> */}
                             <a href="#" className="text-sm font-semibold text-gray-900 dark:text-white">
                                 로그인
                             </a>
                         </PopoverGroup>
 
                         <button
+                            onClick={toggleSidebar}  
+                            className="p-2 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition">
+                            <UserCircleIcon className="h-6 w-6 text-gray-800 dark:text-white"/>
+                        </button>
+
+                        <button
                             onClick={toggleDarkMode}
-                            className="p-2 rounded-md bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 transition"
+                            className="p-2 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition"
                         >
                             {isDarkMode ? (
                                 <SunIcon className="h-5 w-5 text-yellow-400" />
