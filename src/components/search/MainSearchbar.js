@@ -3,17 +3,9 @@
 import React from "react"
 import { useState, useRef, useEffect } from 'react'
 import {
-    MoonIcon,
-    SunIcon,
     ClockIcon,
     StarIcon,
-    UserCircleIcon,
-    FolderOpenIcon,
-    PlusCircleIcon,
     ExclamationCircleIcon,
-    Bars3Icon,
-    MagnifyingGlassIcon
-    
 } from '@heroicons/react/24/solid'
 
 export default function MainSearchbar(){
@@ -50,8 +42,6 @@ export default function MainSearchbar(){
             }
         }, [isDarkMode])
     
-        const toggleDarkMode = () => setIsDarkMode(!isDarkMode)
-    
         const handleSearch = () => {
             console.log('Search for:', searchTerm)
             setIsSearchFocused(false)
@@ -71,7 +61,7 @@ export default function MainSearchbar(){
         )
 
     return(
-        <div className="relative flex items-center justify-center mx-auto max-w-lg w-full">
+        <div className="relative flex items-center justify-center mx-auto w-full">
             <input
                 ref={searchInputRef}
                 type="text"
