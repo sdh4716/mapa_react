@@ -117,6 +117,18 @@ export default function Header({ toggleSidebar }) {
                             </a>
                         </PopoverGroup>
 
+                        <PopoverGroup className="hidden lg:flex lg:gap-x-6">
+                            {/* <Link to="/partyfinder" className="text-sm font-semibold text-gray-900 dark:text-white">
+                                파티찾기
+                            </Link>
+                            <Link to="/partymaker" className="text-sm font-semibold text-gray-900 dark:text-white">
+                                파티생성
+                            </Link> */}
+                            <a href="/myInfoReg" className="text-sm font-semibold text-gray-900 dark:text-white">
+                                내정보
+                            </a>
+                        </PopoverGroup>
+
                         <button
                             onClick={toggleSidebar}  
                             className="p-2 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition">
