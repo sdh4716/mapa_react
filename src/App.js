@@ -7,6 +7,7 @@ import Footer from './components/layout/Footer'
 import Main from './pages/Main'
 import PartyFinder from './pages/PartyFinder'
 import PartyMaker from './pages/PartyMaker'
+import MyInfoReg from './pages/MyInfoReg'
 import Sidebar from './components/layout/Sidebar'
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
                             <Route path="/" element={<Main />} />
                             <Route path="/partyfinder" element={<PartyFinder />} />
                             <Route path="/partymaker" element={<PartyMaker />} />
+                            <Route path="/myInfoReg" element={<MyInfoReg />} />
                         </Routes>
                     </main>
 
