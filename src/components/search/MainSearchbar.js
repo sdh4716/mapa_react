@@ -2,18 +2,15 @@
 
 import React from "react"
 import { useState, useRef, useEffect } from 'react'
-import {
-    ClockIcon,
-    StarIcon,
-    ExclamationCircleIcon,
-} from '@heroicons/react/24/solid'
+import { ClockIcon, StarIcon, ExclamationCircleIcon } from '@heroicons/react/24/solid'
+import { useNavigate } from 'react-router-dom'
 
 export default function MainSearchbar(){
 
      const [searchTerm, setSearchTerm] = useState('')
         const [isSearchFocused, setIsSearchFocused] = useState(false)
-        const [isDarkMode, setIsDarkMode] = useState(false)
         const searchInputRef = useRef(null)
+        const navigate = useNavigate()
     
         const mockHuntingSpots = [
             { id: 1, name: '엘리니아 숲', icon: 'https://maplestory.io/api/GMS/62/map/Ellinia/icon' },
@@ -34,14 +31,6 @@ export default function MainSearchbar(){
             { id: 6, name: '마가티아 사막', icon: 'https://maplestory.io/api/GMS/62/map/Ellinia/icon' },
         ]
     
-        useEffect(() => {
-            if (isDarkMode) {
-                document.documentElement.classList.add('dark')
-            } else {
-                document.documentElement.classList.remove('dark')
-            }
-        }, [isDarkMode])
-    
         const handleSearch = () => {
             console.log('Search for:', searchTerm)
             setIsSearchFocused(false)
@@ -59,6 +48,16 @@ export default function MainSearchbar(){
         const filteredHuntingSpots = mockHuntingSpots.filter((spot) =>
             spot.name.toLowerCase().includes(searchTerm.toLowerCase())
         )
+
+        // "찾기" 버튼 클릭 시 이동
+        const handleFind = (spot) => {
+            navigate(`/partyfinder?name=${encodeURIComponent(spot.name)}&icon=${encodeURIComponent(spot.icon)}`)
+        }
+
+        // "생성" 버튼 클릭 시 이동
+        const handleCreate = (spot) => {
+            navigate(`/partymaker?name=${encodeURIComponent(spot.name)}&icon=${encodeURIComponent(spot.icon)}`)
+        }
 
     return(
         <div className="relative flex items-center justify-center mx-auto w-full">
@@ -90,9 +89,9 @@ export default function MainSearchbar(){
                                                 <span>{spot.name}</span>
                                             </div>
                                             <div className="flex items-center gap-2">
-                                                <span className='hover:text-orange-600'>찾기</span>
+                                                <span className='hover:text-orange-600' onClick={() => handleFind(spot)}>파티찾기</span>
                                                 <span>|</span>
-                                                <span className='hover:text-orange-600'>생성</span>
+                                                <span className='hover:text-orange-600' onClick={() => handleCreate(spot)}>파티생성</span>
                                             </div>
                                         </li>
                                     ))}
@@ -101,7 +100,7 @@ export default function MainSearchbar(){
                             <div>
                                 <h3 className="text-sm font-semibold mb-2 flex items-center dark:text-white">
                                     <StarIcon className="h-4 w-4 mr-1 text-yellow-500" />
-                                    즐겨찾기 사냥터
+                                    즐겨파티찾기 사냥터
                                 </h3>
                                 <ul>
                                     {favoriteSpots.map((spot) => (
@@ -111,9 +110,9 @@ export default function MainSearchbar(){
                                                 <span>{spot.name}</span>
                                             </div>
                                             <div className="flex items-center gap-2">
-                                                <span className='hover:text-orange-600'>찾기</span>
+                                                <span className='hover:text-orange-600' onClick={() => handleFind(spot)}>파티찾기</span>
                                                 <span>|</span>
-                                                <span className='hover:text-orange-600'>생성</span>
+                                                <span className='hover:text-orange-600' onClick={() => handleCreate(spot)}>파티생성</span>
                                             </div>
                                         </li>
                                     ))}
@@ -130,9 +129,9 @@ export default function MainSearchbar(){
                                             <span>{spot.name}</span>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <span className='hover:text-orange-600'>찾기</span>
+                                            <span className='hover:text-orange-600' onClick={() => handleFind(spot)}>파티찾기</span>
                                             <span>|</span>
-                                            <span className='hover:text-orange-600'>생성</span>
+                                            <span className='hover:text-orange-600' onClick={() => handleCreate(spot)}>파티생성</span>
                                         </div>
                                     </li>
                                 ))}

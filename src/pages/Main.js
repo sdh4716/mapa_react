@@ -44,10 +44,6 @@ export default function Main() {
                         메이플랜드 파티구인 시스템
                     </h1>
 
-                    <div className="mb-8 bg-gray-200 rounded-lg h-20 flex items-center justify-center">
-                        <span className="text-gray-600">[광고] 와이드형 광고 배너 (헤더 아래)</span>
-                    </div>
-
                     <div className="relative mb-8">
                         <MainSearchbar/>
                     </div>

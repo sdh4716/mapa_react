@@ -73,8 +73,6 @@ export default function Header({ toggleSidebar }) {
         spot.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
 
-
-
     return (
         <>
             <header className="bg-gray-100 dark:bg-gray-800 fixed top-0 left-0 w-full z-50 shadow-md transition-colors">
@@ -102,7 +100,9 @@ export default function Header({ toggleSidebar }) {
                         </Link>
                     </div>
 
-                    <MainSearchbar/>
+                    <div className="relative flex items-center justify-center mx-auto max-w-lg w-full">
+                        <MainSearchbar/>
+                    </div>
 
                     <div className="flex items-center gap-x-6">
                         <PopoverGroup className="hidden lg:flex lg:gap-x-6">
@@ -115,18 +115,9 @@ export default function Header({ toggleSidebar }) {
                             <a href="#" className="text-sm font-semibold text-gray-900 dark:text-white">
                                 로그인
                             </a>
-                        </PopoverGroup>
-
-                        <PopoverGroup className="hidden lg:flex lg:gap-x-6">
-                            {/* <Link to="/partyfinder" className="text-sm font-semibold text-gray-900 dark:text-white">
-                                파티찾기
-                            </Link>
-                            <Link to="/partymaker" className="text-sm font-semibold text-gray-900 dark:text-white">
-                                파티생성
-                            </Link> */}
-                            <a href="/myInfoReg" className="text-sm font-semibold text-gray-900 dark:text-white">
+                            <Link to="/myInfoReg" className="text-sm font-semibold text-gray-900 dark:text-white">
                                 내정보
-                            </a>
+                            </Link>
                         </PopoverGroup>
 
                         <button
